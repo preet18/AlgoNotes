@@ -1,3 +1,11 @@
+TECHNIQUES USED TO SOLVE STRING PROBLEMS
+
+Find all the substrings of the string
+Odd length substring and even length substring technique
+Non-Repeating Character Substring(NRCS)
+Find all the permutations of the string
+ROMAN NUMBERS I - 1 V - 5 X - 10 L - 50 C - 100 D - 500 M - 1000 X-BAR - 5000 M-BAR - 10000
+
 
 🌟️PROBLEMS ON STRING🌟️ 1.[SUBSTRINGS] Find all the substrings of the string Eg: i/p: abc o/p: {'a', 'b', 'c', 'ab', 'bc', 'abc'}
 
