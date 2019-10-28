@@ -301,4 +301,187 @@ Logic::
 
 
 
-8.[RECURSIVELY REMOVE ALL ADJACENT DUPLICATES] 
+8.[RECURSIVELY REMOVE ALL ADJACENT DUPLICATES] Recursively remove all the adjacent duplicates from the given string.
+Eg:
+i/p1: geeksforgeeg 
+o/p1: gksfor
+i/p2: mississipie
+o/p1: mipie
+
+
+Solution:
+M1: Using Iterative Approach - O(N^N)|O(1)
+M2: Using the 2 Pointers such that maintaining the prev to hold the last char deleted - O(N)|O(1)
+M3: Using Recursive approach - O(N)|O(1)
+	removeUtil(String str, char last_removed){
+		//If string is of length 0 or 1, just return the string
+		if(str.length()==0||str.length()==1){
+			return str;
+		}
+		
+		if(str.charAt(0)==str.charAt(1)){
+			last_removed = str.charAt(0);
+			while(str.length()>1 && str.charAt(0)==str.charAt(1)){
+				str = str.substring(1, str.length());
+			}
+			str = str.substring(1, str.length());
+			return removeUtil(str, last_removed);
+		}
+		
+		String rem_str = removeUtil(str.substring(1, str.length()), last_removed);
+		
+		//This is for the example like "paap"
+		if(rem_str.length()!=0 && rem_str.charAt(0) ==str.charAt(0)){
+			last_removed = str.charAt(0);
+			return rem_str.substring(1, rem_str.length());
+		}
+		
+		//This condition is for the example like "caacc"
+		if(rem_str.length()==0 && last_removed==str.charAt(0)){
+			return rem_str;
+		}
+		return (str.charAt(0)+rem_str);
+	}
+
+M4: Using stack - O(N)|O(N)
+	
+	func(String a){
+			Stack<Character> st = new Stack<>();
+			char prev = a.charAt(0);
+			st.push(a.charAt(0));
+			
+			for(int i=1; i<a.length(); i++){
+				if(!st.isEmpty() && a.charAt(i)==st.peek()){
+					prev = st.pop();
+				}else if(a.charAt(i)==prev){
+				}else{
+					st.push(a.charAt(i));
+					prev = a.charAt(i);
+				}
+			}
+			
+			String ans = "";
+			while(!st.isEmpty()){
+				char temp = st.pop();
+				ans += temp;
+			}
+			System.out.println(new StringBuilder(ans).reverse() + " "); 
+		}
+	}
+	
+	
+9.[PATTERN MATCHER] Given a pattern of (X,Y), and a string str, need to find the X, Y values from the given string.
+Eg:
+i/p: "XXYXXY", "gogopowerrangergogopowerranger"
+o/p: ["go", "powerranger"];
+
+Solution:
+M1: Brute Force - Find all the substrings and do the append everything 
+M2: Just iterating over the string to find the X and Y based on the given pattern - O(N^2+M)|O(N+M)
+	N - String length, M - Pattern Length
+
+	String[] patternMatcher(String pattern, String str){
+		if(pattern.length()>str.length()){
+			return new string[]();
+		}
+		char[] patternArr = new char[Pattern.length()];
+		patternArr = pattern.toCharArray();
+		
+		//to make sure first letter in the Pattern is X, (And checking if switching is done to make it beginning)
+		boolean didSwitch = buildPatternArray(patternArr, pattern);
+		
+		Map<Character, Integer> count = null;
+		int firstPosOfY = findCOuntAndFirstPosOfY(patternArr, count);
+		
+		//If String is a two words combination
+		if(count.get('Y')!=0){
+			double lenY;
+			double n = Double.valueOf(str.length());
+			
+			//Checking the different length string words, which satisfies the pattern 
+			for(int lenX = 1; lenX <=n; lenX++){
+				//Finding the length of Y for the corresponding length of X
+				lenY = (n-count.get('X')*lenX)/count.get('Y');
+				
+				//If the string 2 - is Empty or if is not a integer, then we are not considering the length of String X
+				if(lenY==0 || lenY%1!=0){
+					continue;
+				}
+				
+				//Finding the starting position of the String2
+				int fIdY = lenX * firstPosOfY;
+				String X = str.substring(0, lenX);
+				String Y = str.substring(fIdY, fIdY + (int)lenY);
+				
+				//Framing the string based on the pattern from X and Y
+				String potentialMatch = buildPotentialMatch(patternArr, X, Y);
+				
+				//Checking if the framed String matches the  Original String
+				if(str.equals(potentialMatch)){
+					return didSwitch ? new String[]{Y,X}: new String[]{X, Y};
+				}
+			}
+		}else{
+			double lenX = str.length()/count.get('X')'
+			if(lenX>=1){
+				String X = str.substring(0, (int)lenX);
+				
+				//Framing the string based on the pattern from X
+				String potentialMatch = buildPotentialMatch(X, "");
+				
+				//Checking if the framed String matches the  Original String
+				if(str.equals(potentialMatch()){
+					return didSwitch?new String[]{"",X}:new String[]{X,""};
+				}
+			}
+		}	
+	}
+	
+	boolean buildPatternArray(char[] patternArr, String pattern){
+		//To indicate if pattern is reveresed or not
+		boolean rev = false;
+		
+		if(patternArr[0]=='X'){
+			return rev;
+		}else{
+			for(int i=0; i<patternArr.length(); i++){
+				if(patterArr[i]=='X'){
+					patternArr[i] = 'Y';
+				}else{
+					patternArr[i] = 'X';
+				}
+			}
+			rev = true;
+			return rev;
+		}
+		
+	}
+	
+	int findCountAndFirstPosOfY(char[] patternArr, Map<Character, Integer>count){
+		count.put('X', 0);
+		count.put('Y', 0);
+		
+		int firstPosOfY = -1;
+		for(int i=0; i<patternArr.length; i++){
+			if(patternArr[i]=='X'){
+				count.put('X', count.get('X')+1);
+			}else{
+				count.put('Y', count.get('Y')+1);
+				if(firstPosOfY==-1){
+					firstPosOfY = i;
+				}
+			}
+		}
+		return firstPosOfY;
+	}
+	
+	String buildPotentailMatch(char[] patternArr, String X, String Y){
+		StringBuffer res = new StringBuffer("");
+		for(char ch : patternArr){
+			if(ch=='X')
+				res.append(X);
+			else
+				res.append(Y);
+		}
+		return res.toString();
+	}
