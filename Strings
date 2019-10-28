@@ -119,7 +119,7 @@ Solution: M1: Using Iterative Approach - O(N^N)|O(1) M2: Using the 2 Pointers su
 	}
 	return (str.charAt(0)+rem_str);
 }
-M4: Using stack - O(N)|O(N)
+M2: Using stack - O(N)|O(N)
 
 func(String a){
 		Stack<Character> st = new Stack<>();
