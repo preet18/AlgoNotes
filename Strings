@@ -4,6 +4,7 @@ Find all the substrings of the string
 Odd length substring and even length substring technique
 Non-Repeating Character Substring(NRCS)
 Find all the permutations of the string
+Suffix Trie
 ROMAN NUMBERS I - 1 V - 5 X - 10 L - 50 C - 100 D - 500 M - 1000 X-BAR - 5000 M-BAR - 10000
 
 
@@ -430,3 +431,52 @@ Logic::
 		return false;
 	}
 
+11.[CONSTRUCTION OF A SUFFIX TRIE] - O(N^2)|O(N^2)
+[SUFFIX TRIE] Trie Data Structure, which stores all the suffixes of the given string
+Eg: 
+i/p: "babc"
+o/p: {"babc", "abc", "bc", "c"}
+
+static class TrieNode{
+	HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+}
+
+static class suffixTrie{
+	TrieNode root = TrieNode();
+	char endSymbol = '*';
+	
+	public suffixTrie(String str){
+		populateSuffixTrie(str);
+	}
+	
+	public void populateSuffixTrieFrom(String str){
+		for(int i=0; i<str.length(); i++){
+			insertSubstringStartingAt(i, str);
+		}
+	}
+}
+
+public void insertSubstringStartingAt(int start, String str){
+	TrieNode node = root;
+	for(int i=start; i<str.length(); i++){
+		char ch = str.charAt(i);
+		if(!node.children.containsKey(ch)){
+			node.children.put(ch, new TrieNode());
+		}
+		node = node.children.get(ch);
+	}
+	node.children.put(endSymbol, null);
+}
+
+12.[FINDING A STRING IN A SUFFIX TRIE] - O(M)|O(1) - M length of the string that need to searched 
+public boolean contains(String str){
+	TrieNode node = root;
+	for(int i=0; i<str.length(); i++){
+		char ch = str.charAt(i);
+		if(!node.children.containsKey(ch)){
+			return false;
+		}
+		node  = node.children.get(ch);
+	}
+	return node.children.containsKey(endSymbol)?true:false;
+}
