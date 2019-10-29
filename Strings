@@ -375,3 +375,58 @@ String buildPotentailMatch(char[] patternArr, String X, String Y){
 	return res.toString();
 }
 
+
+
+10.[KNUTH-MORRIS-PRATT ALGORITHM] To check whether the first string contains the second string or not.
+Eg:
+i/p: aefoaefcdaefcdaed, aefcdaed
+o/p: YES
+
+Solution:
+M1: Find all the substrings and comparing all those substrings with the second string - O(N^2+N^2*M)|O(N^2*N)
+M2: Naive Approach - Comparing every character of the first string with the second string - O(N^2)|O(1)
+M3: Using Knuth-Morris-Pratt Algorithm - O(N+M)|O(M) - N - length of str1, M - length of str2
+Logic::
+	boolean KnuthMorrisPrattAlgorithm(String string, String substring){
+		int[] pattern = buildPattern(substring);
+		return doesMatch(string, substring, pattern);
+	}
+
+	int[] buildPattern(String substring){
+		int[] pattern = new pattern[substring.length()];
+		Arrays.fill(pattern, -1);
+		int j = 0;
+		int i = 1;
+		while(i<substring.length()){
+			if(substring.charAt(i)==substring.charAt(j)){
+				pattern[i] = j;
+				i++;
+				j++;
+			}else if(j>0){
+				j = pattern[j-1]+1;
+			}else{
+				i++;
+			}
+		}
+		return pattern;
+	}	
+
+	boolean doesMatch(String string, String substring, int[] pattern){
+		int i=0;
+		int j=0;
+		while(i+substring.length()-j <= string.length()){
+			if(string.charAt(i)==substring.charAt(j)){
+				if(j==substring.length()-1){
+					return true;
+				}
+				i++;
+				j++;
+			}else if(j>0){
+				j = pattern[j-1]+1;
+			}else{
+				i++;
+			}
+		}
+		return false;
+	}
+
