@@ -431,12 +431,15 @@ Logic::
 		return false;
 	}
 
-11.[CONSTRUCTION OF A SUFFIX TRIE] - O(N^2)|O(N^2)
+
+11.[CONSTRUCTION OF A SUFFIX TRIE]
 [SUFFIX TRIE] Trie Data Structure, which stores all the suffixes of the given string
 Eg: 
 i/p: "babc"
 o/p: {"babc", "abc", "bc", "c"}
 
+Solution:
+M1: Find all the suffixes and frame the suffix trie - O(N^2)|O(N^2)
 static class TrieNode{
 	HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
 }
@@ -468,7 +471,14 @@ public void insertSubstringStartingAt(int start, String str){
 	node.children.put(endSymbol, null);
 }
 
-12.[FINDING A STRING IN A SUFFIX TRIE] - O(M)|O(1) - M length of the string that need to searched 
+12.[FINDING A STRING IN A SUFFIX TRIE]
+Eg:
+i/p: "pumpkin", "pump"
+o/p: yes
+
+
+Solution:
+M1: O(M)|O(1) - M length of the string that need to searched 
 public boolean contains(String str){
 	TrieNode node = root;
 	for(int i=0; i<str.length(); i++){
