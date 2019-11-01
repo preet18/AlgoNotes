@@ -490,3 +490,130 @@ public boolean contains(String str){
 	}
 	return node.children.containsKey(endSymbol)?true:false;
 }
+
+13.[MULTI STRING MATCH]Given a big string and list of strings, find the smaller strings of list which are present in the bigger string.
+Eg:
+i/p: str = "this is a big string", list = [this, yo, is, a, bigger, string, kappa]
+o/p: [T, F, T, T, F, T, F]
+
+Solution:
+M1: Take each string of the list and iterate over the bigger string - O(b*n*s)|O(n)
+	b - length of big string, n - no of elements in the list, s - length of the largest string in list.
+M2: Forming the suffix Trie of the big string and searching list of strings in the suffix trie - O(b^2+n*s)|O(b^2+n)
+M3: Framing the trie of strings in the list and then iterating over the trie for every suffix of the bigger string - O(n*s+b*s)|O(n*s+n)
+
+
+
+14.[GENERATE PARENTHESIS] Given n parenthesis, write a function to generate all combinations of well-formed parenthesis.
+Eg: 
+i/p: N=3
+o/p: [((())), (()()), (())(), ()(()), ()()()]
+
+Solution:
+M1: Just comparing the available no of parenthesis with the possible no of parenthesis while inserting - O(N*cat(N))
+List<String> generateParenthesis(int n){
+	if(n>0){
+		List<String> list = new ArrayList<String>();
+		char[] str = new char[2*n];
+		int pos = 0, open = 0, close = 0;
+		createParenthesis(list, str, n, pos, open, close);
+	}
+	return null;
+}
+
+createParenthesis(List<String> list, char[] str, int n, int pos, int open, int close){
+	if(close==n){
+		list.add(new String(str));
+		return;
+	}
+	if(open<n){
+		str[pos]='(';
+		createParenthesis(list, str, n, pos+1, open+1, close);
+	}
+	if(open>close){
+		str[pos]=')';
+		createParenthesis(list, str, n, pos+1, open, close+1);
+	}
+}
+
+15.[GROUP ANAGRAMS] 
+Eg:
+i/p: [eat, team tan, ate, nat, bat]
+o/p: [ [ate, eat, tea], [nat, tan], [bat]]
+
+Solution:
+M1: Using HashMap group all the anagrams, i.e by storing hash as a key in map and string as value corresponding to the hashvalue. - O(N*S^2)|O(N*S)
+N - Length of the list, S - Length of biggest String
+
+List<List<String>> groupAnagrams(String[] strs){
+	List<List<String>> res = new ArrayList<>();
+	Map<String, List<String>> map = new HashMap<>();
+	
+	for(String str: strs){
+		//Generating the hash for the string
+		String orderKey = getSortedKey(str);
+		if(map.containsKey(orderKey)){
+			map.get(orderKey).add(str);
+		}else{
+			List<String> list = new ArrayList<>();
+			list.add(str);
+			map.put(orderKey, list);
+		}
+	}
+	res.addALL(map.values());
+	return res;
+}
+
+getSortedKey(String str){
+	char[] arr = new char[26];
+	for(i=0; i<str.length(); i++){
+		arr[str.charAt(i)-'a']++;
+	}
+	return new String(arr);
+}
+
+16.[LETTER COMBINATIONS OF THE PHONE NUMBER]
+Eg:
+i/p: 23
+o/p: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+
+Solution:
+M1: Just form the map with a possible characters for different numbers and use recursive approach to find the combinations possible 
+List<String> letterCombinations(String digits){
+	if(digits.length()<0){
+		int n = digits.length();
+		char[] str = new char[n];
+		List<String> list = new ArrayList<String>();
+		int pos = 0;
+		Map<Character, List<Character>> map = formMap();
+		formString(list, str, n, pos, map, digits);
+		return list;
+	}
+	return Arrays.asList();
+}
+
+public Map<Character, List<Character>> formMap(){
+	Map<Character, List<Character>> map = new HashMap<>();
+	map.put('2', Arrays.asList('a','b','c'));
+	map.put('3', Arrays.asList('d','e','f'));
+	"
+	"
+	"
+	"
+	"
+	
+	return map;
+}
+
+formString(List<String> list, char[] str, int n, int pos, Map<Character, List<Character>> map, String digits){
+	if(pos==n){
+		list.add(new String(str));
+		return;
+	}
+	
+	List<Character> alphaList = map.get(digits.charAt(pos));
+	for(Character ch : alphaList){
+		str[pos] = ch;
+		formString(list, str, n, pos, map, digits);
+	}
+}
