@@ -200,3 +200,111 @@ void printSolution(int sol[][]){
 
 }
 
+
+
+9.[WORD BOGGLE] Find all possible words that can be formed by a sequence of adjacent characters. 
+We can move to any of 8 adjacent directions, but a word shouldn't have multiple instances of same cell.
+Eg:
+i/p: strs[L] = { "GEEKS", "FOR", "QUIZ", "GO"}
+     boggle[N][M] = { {'G', 'I', 'Z'},
+					{'U', 'E', 'K'},
+					{'Q', 'S', 'E'}};
+o/p: { "GEEKS", "QUIZ"}
+
+Solution:
+M1: O(L*S + (N*M)^2)|O(L*S + (N*M))
+N*M - Boggle dimensions
+L - Length of strs Array
+S - Length of the biggest String
+TimeComplexity::
+O(L*S) - To store strings of array in trie
+O(N*M)^2 - For each letter of boggle trying to find strings
+SpaceComplexity::
+O(L*S) - To store strings of array in trie
+O(N*M) - to hold visited array
+
+
+Logic::
+static class Trie{
+	Trie[] alpha;
+	boolean end;
+	Trie(){
+		alpha = new Trie[26];
+		end = false;
+	}
+}				
+				
+main(){
+	Trie root = new Trie();
+	insertWords(root, strs);
+	wordBoggle(root, mat, n, m);
+}
+
+insertWords(Trie root, String[] strs){
+	for(int i=0; i<strs.length; i++){
+		Trie node = root;
+		for(int j=0; j<strs[i].length(); j++){
+			char ch = strs[i].charAt(j);
+			int pos = ch-'A';
+			if(node.alpha[pos] == null){
+				node.alpha[pos] = new Trie();
+			}
+			node = node.alpha[pos];
+		}
+		node.end = true;
+	}
+}
+
+wordBoggle(Trie root, char[][] mat, int n, int m){
+	boolean[][] visited;
+	ArrayList<String> list = new ArrayList<String>();
+	for(int i=0; i<n; i++){
+		for(int j=0; j<m; j++){
+			Trie node = root;
+			visited = new boolean[n][m];
+			char ch = mat[i][j];
+			int pos = ch - 'A';
+			String str = String.valueOf(ch);
+			if(node.alpha[pos]!=null){
+				wordBoggleUtil(node.alpha[pos], mat, i, j, n, m, visited, list, str);
+			}
+		}
+	}
+	if(list.size()>0){
+		printSolution(list);
+	}else{
+		System.out.println("-1");
+	}
+}
+
+wordBoggleUtil(Trie node, char[][] mat, int row, int col, int n, int m, boolean[][] visited, ArrayList<String> list, String str){
+	if(node.end && !list.contains(str)){
+		list.add(str);
+	}
+
+	visited[row][col] = true;
+	if(isSafe(node, mat, row+1, col, n, m, visited)){
+		char ch = mat[row+1][col];
+		int pos = ch-'A';
+		wordBoggleUtil(nod.alpha[pos], mat, row+1, col, n, m, visited, list, str+String.valueOf(ch));
+	}
+	.
+	.
+	.
+	.
+	.
+	.
+	.
+	Iterated over the remaining directions
+	visited[row][col] = false;
+	return;
+}
+
+boolean isSafe(Trie node, char[][] mat, int row, int col, int n, int m, boolean[][] visited){
+	if(row==-1||row==n||col==-1||col==m|||visited[row][col]||node.alpha[mat[row][col]-'A']==null){
+		return false;
+	}
+	return true;
+}
+
+
