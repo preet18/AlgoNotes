@@ -1,0 +1,99 @@
+🌟️PROBLEMS ON DYNAMIC PROGRAMMING🌟️
+
+1.[MAXIMUM SUBSET SUM WITH NO ADJACENT ELEMENTS]
+Eg:
+i/p: [75, 105, 120, 75, 90, 135]
+o/p: 330[75, 120, 135]
+
+Solution:
+M1: Using Recursion O(N^3)|O(1)
+Logic::
+maxSubsetSumNoAdjacents(int[] array){
+	int n = array.length;
+	int max = 0, sum=0;
+	for(int i=0; i<n; i++){
+		sum = arr[i];
+		max = findMaxSubset(array, i, n, sum, max);
+	}
+	return max;
+}
+
+int findMaxSubset(int[] array, int pos, int n, int sum, int max){
+	if(max<sum){
+		max = sum;
+	}
+	for(int k=pos+2; k<n; k++){
+		if((array[k]+sum)>sum){
+			max = findMaxSubset(array, k, n, sum+array[k], max);
+		}
+	}
+	return max;
+}
+
+M2: Using Dynamic Programming - O(N)|O(N)
+Approach::
+array -  [7, 10, 12, 7, 9, 14], sol - 7+12+14 = 33
+maxsums -[7, 10, 19, 19, 28, 33]
+maxsums[i] = Math.max(maxsums[i-1], maxsums[i-2]+array[i])
+
+Logic::
+if(array.length==0){
+	return 0;
+}
+if(array.length==1){
+	return array[0];
+}
+
+int[] maxsums = new int[n];
+maxsums[0] = array[0];
+maxsums[1] = Math.max(array[0], array[1]);
+
+for(int i=2; i<n; i++){
+	maxsums[i] = Math.max(maxsums[i-1], maxsums[i-2]+array[i]);
+}
+return maxsums[n-1];
+
+M3: As we are using just Previous 2 elements, everytime to find the result, instead of storing all the elements, we can store just previous 2 elements, 
+thus reducing the space complexity O(1) - O(N)|O(1)
+
+Sol: 
+if(array.length==0){
+	return 0;
+}
+if(array.length==1){
+	return array[0];
+}
+
+int first = array[0];
+int second = Math.max(array[0], array[1]);
+
+for(int i=2; i<n; i++){
+	int current = Math.max(second, first+array[i]);
+	first = second;
+	second = current;
+}
+return second;
+
+2.[NUMBER OF WAYS TO MAKE CHANGE] Given array of +ve integers, representing coin denomintaions. Find no of ways to make changes for that target amount
+using the given denominations
+Eg:
+i/p: 6 [1,5]
+o/p: 2 ways --[1*1+1*5, 6*1]
+
+M1: O(N.D)|O(N)
+N-TargetSum
+D-No of Denominations
+
+Logic::
+numberOfWaysToMakeChange(int n, int[] denoms){
+	int[] ways = new int[n+1];
+	ways[0] = 1;
+	for(int denom : denoms){
+		for(int amount = 1; amount<n+1; amount++){
+			if(denom<=amount){
+				ways[amount]+=ways[amount-denom]
+			}
+		}
+	}
+	return ways[n];
+}
