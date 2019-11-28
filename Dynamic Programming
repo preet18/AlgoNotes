@@ -97,3 +97,177 @@ numberOfWaysToMakeChange(int n, int[] denoms){
 	}
 	return ways[n];
 }
+
+3.[LEVENSHTEIN DISTANCE] No of edit operations required to convert first string to second string. 
+The edit operations could be insert, deletion or substitution
+Eg:
+i/p:abc
+o/p:yabd
+
+Solution:
+M1: USing Dynamic Programming - O(N*M)|O(N*M)
+N-length of string 1
+M-length of string 2
+
+Logic::
+int levennshteinDistance(String str1, String str2){
+	int[][] edits = new int[str1.length()+1][str2.length()+1];
+	for(int i=0; i<str1.length()+1; i++){
+		for(int j=0; j<str2.length()+1; j++){
+			edits[i][j] = j;
+		}
+		edits[i][0] = i;
+	}
+	
+	for(int i=1; i<str1.length()+1; i++){
+		for(int j=1; j<str2.length()+1; j++){
+			if(str1.charAt(i-1)==str2.charAt(j-1)){
+				edits[i][j] = edits[i-1][j-1];
+			}else{
+				edits[i][j] = 1+Math.min(edits[i][j-1], edits[i-1][j-1], edits[i-1][j]);
+			}
+		}
+	}
+	
+	return edits[str1.length()][str2.length()];
+}
+
+/*M2: Can be solved the same in O(N*M)|O(min(N,M))
+
+Logic::
+
+int levenshteinDistance(String str1, String str2){
+	String small = str1.length()<str2.length()?str1:str2;
+	String big = str1.length()>=str2.length()?str1:str2;
+	
+	int[] evenEdits = new int[small.length()+1];
+	int[] oddEdits = new int[small.length()+1];
+	
+	for(int j=0; j<small.length+1; j++){
+		evenEdits = j;
+	}
+}*/
+
+
+4.[MAX SUM INCREASING SEQUENCE]
+
+5.[LONGEST COMMON SUBSEQUENCE]
+
+6.[KNAPSACK PROBLEM]
+
+7.[DISK STACKING]
+
+8.[MINIMUM NUMBER OF COINS FOR CHANGE] Given denom coins. Find minimum no of coins/notes needed to make the change of RsN. Print all the combinations needed 
+to make the change in a separate line.
+Eg: 
+i/p: denoms  : {1, 2, 5, 10, 20, 50, 100, 200, 500, 2000}, sum : 43
+o/p: {20, 20, 2, 1}
+
+Solution:
+M1: Can be solved using dynamic programming - O(D*N)|O(D*N)
+N- Target Amount/sum, D - denoms array length
+
+Logic::
+ArrayList<Integer> findMinCoins(int[] denoms, int N){
+	ArrayList<Integer> list = new ArrayList<Integer>();
+	int L = -1;
+	for(int i=0; i<denoms.length; i++){
+		if(denoms[i]<=N){
+			L=i+1;
+		}else{
+			break;
+		}
+	}
+	
+	//There are no denom coins which can form the required sum/target sum
+	if(L==-1){
+		return null;
+	}
+	
+	int[][] numOfCoins = new int[L+1][N+1];
+	//By not using denom coins we cant get the required target sum
+	Arrays.fill(numOfCoins[0], Integer.MAX_VALUE);
+	
+	//We are using zero coins to get the target sum of 0
+	for(int i=0; i<=L; i++){
+		numOfCoins[i][0] = 0;
+	}
+	
+	for(int i=1; i<=L; i++){
+		for(int amount = 1; amount<=N; amount++){
+			int denom = denoms[i-1];
+			if(denom<=N){
+				numOfCoins[i][amount] = Math.min(numOfCoins[i-1][amount], numOfCoins[i][amount-denom]+1);
+			}else{
+				numOfCoins[i][amount] = numOfCoins[i-1][amount];
+			}
+		}
+	}
+	
+	int i=L, j=N;
+	
+	if(numOfCoins[i][j] = Integer.MAX_VALUE){
+		return null;
+	}	
+	
+	while(i>=1 && j>=1){
+		if(numOfCoins[i][j]!=numOfCoins[i-1][j]){
+			list.add(denoms[i-1]);
+			j = denoms[i-1];
+		}else{
+			i--;
+		}
+		return list;
+	}
+}
+
+9.[MINIMUM NO OF JUMPS] Find the minimum no of jumps required to reach the end of the array from the beginning.
+Eg:
+i/p: [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
+o/p: 3{1,3,8,9}
+
+Solution:
+M1: Using Dynamic Programming O(N*N)|O(N)
+
+Logic::
+int minJumps(int[] arr, int n){
+	int i,j;
+	if(n==0||arr[0]==0){
+		return Integer.MAX_VALUE;
+	}
+	
+	jumps[0] = 0;
+	
+	for(int i=1; i<n; i++){
+		jumps[i] = Integer.MAX_VALUE;
+		for(int j=0; j<i; j++){
+			if(i<=j+arr[j]){
+				jumps[i] = Math.min(jumps[i], jumps[j]+1);
+			}
+		}
+	}
+	
+	return jumps[n-1];
+}
+
+M2: O(N)|O(1)
+
+Logic::
+int minNumberOfJumps(int[] array){
+	if(array.length==1){
+		return 0;
+	}
+	
+	int jumps = 0;
+	int maxReach = array[0];
+	int steps = array[0];
+	for(int i=1; i<array.length-1; i++){
+		maxReach = Math.max(maxReach, i+array[i]);
+		steps--;
+		if(steps==0){
+			jumps++;
+			steps = maxReach-1;
+		}
+	}
+	return jumps+1;
+}
