@@ -271,3 +271,126 @@ int minNumberOfJumps(int[] array){
 	}
 	return jumps+1;
 }
+
+10.[LONGEST INCREASING SUBSEQUENCE] Find the length of the longest subsequence of a given sequence such that all the elements of the subsequence are sorted in
+increasing order.
+Eg:
+i/p: {3, 10, 2, 1, 20}
+o/p: 3 {3, 10, 20}
+
+Solution:
+Approach:
+L[i] be the length of LIS ending with index i - such that arr[i] is the last element of LIS
+
+L[i] = 1+max(L[j]) where 0<j<i and arr[j]<arr[i]
+L[i] = 1, if no such j exists
+
+To find LIS of a given array, we need to return max(L[i]) where 0<i<n
+
+M1: Using recursive method. - O(n!)|O(1)
+n - length of the array.
+
+Logic::
+
+static int max_ref;
+
+int list(int[] arr, int n){
+	max_ref = 1;
+	_lis(arr, n);
+	return max_ref;
+}
+
+int _lis(int[] arr, int n){
+	if(n==1)
+	    return 1;
+	int res, max_ending_here = 1;
+	for(int i=1; i<n; i++){
+		res = _lis(arr, i);
+		if(arr[i-1]<arr[n-1] && res+1 > max_ending_here){
+			max_ending_here = res+1;
+		}
+	}
+	if(max_ref<max_ending_here){
+		max_ref = max_ending_here;
+	}
+	return max_ending_here;
+}
+
+
+M2: Using Dynamic Programming.
+
+Logic::
+int lis(int[] arr, int n){
+	int[] lis = new int[n];
+	int i,j,max=0;
+	//Initiating lis values of all the indices
+	for(int i=0; i<n; i++){
+		lis[i]=1;
+	}
+
+	for(int i=1; i<n; i++){
+		for(int j=0; j<i; j++){
+			if(arr[i]>arr[j] && lis[i]<lis[j]+1){
+				lis[i] = lis[j]+1;
+			}
+		}
+	}
+
+	for(int i=0; i<n; i++){
+		if(max<lis[i]){
+			max = lis[i];
+		}
+	}
+	return max;
+}
+
+
+11.[NUMBERS IN PI] Minimum no of spaces that need to b added to n digits of pi such that all resulting numbers are found in list of numbers.
+Eg:
+i/p: 3141592635897,  {314159, 5897, 2635, 8, 97, 3141, 59263}
+o/p: 2 (3141-59263-5897)
+
+Solution:
+
+M1: O(N^3+M)|O(N+M)
+N- No of digits in Pi
+M- No of numbers in the list
+
+Logic::
+int numbersInPi(String pi, String[] numbers){
+
+	HashSet<String> numbersTable = new HashSet<String>();
+	for(String num : numbers)
+		numbersTable.add(num);
+
+	HashTable<Integer, Integer> cache = new HashTable<Integer, Integer>();
+
+	int minSpaces = getMinSpaces(pi, numbersTable, cache, 0)l
+	return minSpaces==Integer.MAX_VALUE?-1:minSpaces;
+
+}
+
+int getMinSpaces(String pi, HashSet<String> numbersTable, HashMap<Integer, Integer> cache, int idx){
+	if(idx==pi.length()){
+		return -1;
+	}
+
+	if(cache.containsKey(idx)){
+		return cache.get(idx);
+	}
+
+	int minSpaces = Integer.MAX_VALUE;
+	for(int i=idx, i<pi.length(); i++){
+		String prefix = pi.substring(idx, i+1);
+		if(numbersTable.contains(prefix)){
+			int minSpacesInSuffix = getMinSpaces(pi, numbersTable, cache, i+1);
+			if(minSpacesInSuffix == Integer.MAX_VALUE){
+				minSpaces = Math.min(minSpaces, minSpacesInSuffix);
+			}else{
+				minSpaces = Math.min(minSpaces, minSpacesInSuffix+1);
+			}
+		}
+	}
+	cache.put(idx, minSpaces);
+	return cache.get(idx);
+}
