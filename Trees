@@ -1,0 +1,368 @@
+🌟️TREES🌟️
+
+1.[LOWEST COMMON ANCESTOR OF BINARY TREE]
+Eg:
+A binary tree is given as input.
+LCA(4,5)=2
+LCA(4,6)=1
+LCA(3,4)=1
+LCA(2,4)=2
+
+Solution:
+M1: Using Recursion - O(N)|O(H)
+N - no of nodes in the tree
+H - height of the tree
+
+static boolean v1 = false, v2 = false;
+
+Node findLCA(int n1, int n2, Node root){
+	v1 = false;
+	v2 = false;
+
+	Node lca = findLCAUtil(root, n1, n2);
+	if(v1&&v2){
+		return lca;
+	}else{
+		return null;
+	}
+}
+
+Node findLCAUtil(Node node, int n1, int n2){
+	if(node==null)
+		return null;
+	Node temp = null;
+	if(node.data==n1){
+		v1 = true;
+		temp = node;
+	}
+	if(node.data==n2){
+		v2 = true;
+		temp = node;
+	}
+	
+	Node left_lca = findLCAUtil(node.left, n1, n2);
+	Node right_lca = findLCAUtil(node.right, n1, n2);
+
+	if(temp!=null){
+		return temp;
+	}
+
+	if(left_lca!=null && right_lca!=null){
+		return node;
+	}
+
+	return left_lca!=null ? left_lca : right_lca;
+}
+
+2.[PRE ORDER TRAVERSAL]
+Eg:
+i/p:
+o/p:
+
+Logic::
+void printPreorder(Node node){ 
+        if (node == null) 
+            return; 
+  
+        /* first print data of node */
+        System.out.print(node.data + " "); 
+  
+        /* then recur on left sutree */
+        printPreorder(node.left); 
+  
+        /* now recur on right subtree */
+        printPreorder(node.right); 
+} 
+
+3.[IN ORDER TRAVERSAL]
+Eg:
+i/p:
+o/p:
+
+
+Logic::
+void printInorder(Node node){ 
+        if (node == null) 
+            return; 
+  
+        /* first recur on left child */
+        printInorder(node.left); 
+  
+        /* then print the data of node */
+        System.out.print(node.data + " "); 
+  
+        /* now recur on right child */
+        printInorder(node.right); 
+} 
+  
+
+4.[POST ORDER TRAVERSAL]
+Eg:
+i/p:
+o/p:
+
+Logic::
+void printPostorder(Node node){ 
+        if (node == null) 
+            return; 
+  
+        // first recur on left subtree 
+        printPostorder(node.left); 
+  
+        // then recur on right subtree 
+        printPostorder(node.right); 
+  
+        // now deal with the node 
+        System.out.print(node.data + " "); 
+} 
+  
+
+
+5.[LEVEL ORDER TRAVERSAL]
+Eg:
+i/p:
+o/p:
+
+Logic::
+
+M1: Using function to print elements at a given level - O(N*N)|O(H) - Worst case in case of skewed trees
+O(N) - No of nodes in the tree
+H - Height of the tree - is N in case  of skewed trees
+
+
+void printLevelOrder(){ 
+        int h = height(root); 
+        int i; 
+        for (i=1; i<=h; i++) 
+            printGivenLevel(root, i); 
+} 
+  
+/* Compute the "height" of a tree -- the number of 
+nodes along the longest path from the root node 
+down to the farthest leaf node.*/
+int height(Node root){ 
+        if (root == null) 
+           return 0; 
+        else
+        { 
+            /* compute  height of each subtree */
+            int lheight = height(root.left); 
+            int rheight = height(root.right); 
+              
+            /* use the larger one */
+            if (lheight > rheight) 
+                return(lheight+1); 
+            else return(rheight+1);  
+        } 
+} 
+  
+/* Print nodes at the given level */
+void printGivenLevel (Node root ,int level){ 
+        if (root == null) 
+            return; 
+        if (level == 1) 
+            System.out.print(root.data + " "); 
+        else if (level > 1) 
+        { 
+            printGivenLevel(root.left, level-1); 
+            printGivenLevel(root.right, level-1); 
+        } 
+}
+
+
+M2: Using Queue - O(N)|O(N)
+N - No of nodes in the tree
+
+Logic::
+void printLevelOrder(){ 
+        Queue<Node> queue = new LinkedList<Node>(); 
+        queue.add(root); 
+        while (!queue.isEmpty())  
+        { 
+  
+            /* poll() removes the present head. 
+            For more information on poll() visit  
+            http://www.tutorialspoint.com/java/util/linkedlist_poll.htm */
+            Node tempNode = queue.poll(); 
+            System.out.print(tempNode.data + " "); 
+  
+            /*Enqueue left child */
+            if (tempNode.left != null) { 
+                queue.add(tempNode.left); 
+            } 
+  
+            /*Enqueue right child */
+            if (tempNode.right != null) { 
+                queue.add(tempNode.right); 
+            } 
+        } 
+} 
+
+6.[CONNECT NODES AT SAME LEVEL (Level Order Traversal)]
+Eg:
+i/p:
+o/p:
+
+
+Solution:
+M1: USing Iterative Approach - O(N)|O(N)
+N - No of nodes in the tree
+
+Logic::
+class Node{
+	int data;
+	Node left, right, nextRight;
+	Node(int data){
+		this.data = data;
+		left = right = nextRight = null;
+	}
+}
+
+
+connect(Node root){
+	Queue<Node> queue = new LinkedList<Node>();
+	queue.add(root);
+	queue.add(null);//null marker to represent end of current level
+
+	while(!queue.isEmpty()){
+		Node p = queue.peek();
+		queue.remove();
+		if(p!=null){
+			p.nextRight = queue.peek();
+			if(p.left!=null){
+				queue.add(p.left);
+			}
+			if(p.right!=null){
+				queue.add(p.right);
+			}
+		}else if(!queue.isEmpty()){ // if queue is not empty push NULL to mark nodes at this level are visited
+			queue.add(null);
+		}
+	}
+}
+
+
+M2: Using Recursive Approach - O(N)|O(1)
+N - No of nodes in the tree
+
+Logic::
+connectRecur(Node p){
+	if(p==null)
+		return;
+
+	if(p.nextRigth!=null)
+		connectRecur(p.nextRight);
+	
+	if(p.left!=null){
+		if(p.right!=null){
+			p.left.nextRight = p.right.nextRight;
+			p.right.nextRight = getNextRight(p);
+		}else{
+			p.left.nextRight = getNextRight(p);
+		}
+		connectRecur(p.left);
+	}else if(p.right!=null){
+		p.right.nextRight = getNextRight(p);
+		connectRecur(p.right);
+	}else{
+		connectRecur(getNextRight(p));
+	}
+}
+
+
+Node getNextRight(Node p){
+	Node temp = p.nextRight;
+	while(temp!=null){
+		if(temp.left!=null){
+			return temp.left;
+		}else if(temp.right!=null){
+			return temp.right;
+		}
+		temp = temp.nextRight;
+	}
+	return null;
+}
+
+
+7.[LEVEL ORDER TRAVERSAL IN SPIRAL FORM]
+Eg:
+i/p:
+o/p:
+1
+2,3
+7,6,5,4
+
+
+Solution:
+M1: Using Recursive Approach O(N*N)|O(H) - Worst case scenario in case of skewed trees
+N- No of nodes in the tree
+H - Height of the tree - is N in case of skewed trees
+
+Logic::
+void printSpiral(Node node){
+	int h = height(node);
+	int i;
+
+	boolean ltr = false;
+	for(int i=1; i<=h; i++){
+		printGivenLevel(node, i, ltr);
+		ltr =!ltr;
+	}	
+}
+
+void printGivenLevel(Node node, int level, int ltr){
+	if(node==null)
+		return;
+	if(level==1)
+		S.O.P(node.data + " ");
+	else if(level>1){
+		if(ltr){
+			printGivenLevel(node.left, level-1, ltr);
+			printGivenLevel(node.right, level-1, ltr);
+		}else{
+			printGivenLevel(node.right, level-1, ltr);
+			printGivenLevel(node.left, level-1, ltr);
+		}
+	}
+}
+
+M2: Using Iterative Approach(Using 2 stacks) - O(N)|O(N)
+N - No of nodes in the tree
+
+
+Logic::
+
+void printSpiral(Node node){
+	if(node==null)
+		return;
+	Stack<Node> s1 = new Stack<>();
+	Stack<Node> s2 = new Stack<>();
+
+	s1.push(node);
+	
+	while(!s1.empty()||!s2.empty()){
+		while(!s1.empty()){
+			Node temp = s1.pop();
+			System.out.println(temp.data);
+			if(temp.right!=null){
+				s2.push(temp.right);
+			}
+			if(temp.left!=null){
+				s2.push(temp.left);
+			}
+		}
+		while(!s2.empty()){
+			Node temp = s2.pop();
+			System.out.println(temp.data);
+			if(temp.left!=null){
+				s1.push(temp.left);
+			}
+			if(temp.right!=null){
+				s1.push(temp.right);
+			}
+		}
+	}
+}
+
+
+
