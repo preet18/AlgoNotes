@@ -200,6 +200,260 @@ void printSolution(int sol[][]){
 
 }
 
+5.[RAT IN A MAZE PROBLEM WHEN MOVEMENT IN ALL DIRECTIONS IS ALLOWED] 
+Eg:
+i/p1: N = 4
+[[1 0 0 0],
+ [1 1 0 1],
+ [0 1 0 0],
+ [0 1 1 1]]
+o/p1:DRDDRR
+
+i/p2:N=4
+[[1 0 0 0]
+ [1 1 0 1]
+ [1 1 0 0]
+ [0 1 1 1]]
+o/p2: DDRDRR, DRDDRR
+
+Solution:
+M1: Applying Backtracking - O(N*N)|O(1)
+
+ArrayList<String> printPath(int[][] m, int n){
+	boolean[][] visited = new boolean[n][n];
+	Stack<Character> stack = new Stack<Character>();
+	ArrayList<String> list = new ArrayList<String>();
+	findPath(m,n,0,0,stack,list,visited);
+	return list;
+}
+
+void findPath(int[][] m, int n, int r, int c, Stack<Character> stack, ArrayList<String> list, boolean[][] visited){
+	if(r==-1||r==n||c==-1||c==n||visited[r][c]||m[r][c]==0){
+		return;
+	}
+	if(r==n-1&&c==n-1){
+		addPathToList(list, stack);
+		return;
+	}
+	visited[r][c] = true;
+	if(isSafe(m,n,r+1,c,visited)){
+		stack.push('D');
+		findPath(m,n,r+1,c,stack,list,visited);
+		stack.pop();
+	}
+
+	if(isSafe(m,n,r,c-1,visited)){
+		stack.push('L');
+		findPath(m,n,r,c-1,stack,list,visited);
+		stack.pop();
+	}
+
+	if(isSafe(m,n,r,c+1,visited)){
+		stack.push('R');
+		findPath(m,n,r,c+1,stack,list,visited);
+		stack.pop();
+	}
+
+	if(isSafe(m,n,r-1,c,visited)){
+		stack.push('U');
+		findPath(m,n,r-1,c,stack,list,visited);
+		stack.pop();
+	}
+	visited[r][c] = false;
+}
+
+boolean isSafe(int[][] m, int n, int r, int c, boolean[][] visited){
+	if(r>=0&&r<n&&c>=0&&c<n&&m[r][c]==1&&!visited[r][c]){
+		return true;
+	}
+	return false;
+}
+
+void addPathToList(ArrayList<String> list, Stack<Character> stack){
+	Iterator it = stack.iterator();
+	StringBuilder str = new StringBuilder("");
+	while(it.hasNext()){
+		str.append(it.next());
+	}
+	list.add(str.toString());
+}
+
+6.[GENERATE IP ADDRESSES] For given input print all combinations of IP Addresses
+Eg:
+i/p:11211
+o/p:   {1.1.2.11, 
+	1.1.21.1,
+	1.12.1.1,
+	11.2.1.1}
+
+M1: Generating all the possible combinations from 1 to 3 digits and checking if it is valid.
+Naive Solution: O(81)|O(81)
+
+ArrayList<String> generateIP(String s){
+	ArrayList<String> list = new ArrayList<String>();
+	for(int i=1; i<=3; i++){
+		for(int j=1; j<=3; j++){
+			for(int k=1; k<=3; k++){
+				for(int l=1; l<=3; l++){
+					if(i+j+k+l==s.length()){
+						int a = (int)s.substring(0,i);
+						int b = (int)s.substring(i,i+j);
+						int c = (int)s.substring(i+j,i+j+k);
+						int d = (int)s.substring(i+j+k, i+j+k+l);
+						if(ok(a,b,c,d)){
+							String str = gen(a,b,c,d);
+							if(str.length()==s.length()+3){
+								list.add(str);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return list;
+}
+
+boolean ok(int a, int b, int c, int d){
+	return (a<=255 && b<=255 && c<=255 && d<=255);
+}
+
+String gen(int a, int b, int c, int d){
+	return (a+"."+b+"."+c+"."+d);
+}
+
+
+7.[SUDOKU SOLVER] 
+
+Solution:
+public static void solveSudoku(int[][] board){
+	int n = board.length;
+	if(solveSudokuUtil(board, n)){
+		printSolution(board, n);
+	}else{
+		sop("No Solution Found");
+	}
+}
+
+public static boolean solveSudokuUtil(int[][] board, int n){
+	int row = -1;
+	int col = -1;
+	boolean isCellEmpty = false;
+	for(int i=0; i<n; i++){
+		for(int j=0; j<n; j++){
+			if(board[i][j]==0){
+				row = i;
+				col = j;
+				isCellEmpty = true;
+				break;
+			}
+		}
+		if(isCellEmpty){
+			break;
+		}
+	}
+
+	if(!isCellEmpty){
+		return true;
+	}
+
+	for(int num=1; num<=n; num++){
+		if(isSafe(board,n,num,row,col)){
+			board[row][col] = num;
+			if(solveSudokuUtil(board,n)){
+				return true;
+			}
+			board[row][col]=0;
+		}
+	}
+	return false;
+}
+
+public static boolean isSafe(int[][] board, int n, int num, int row, int col){
+	for(int i=0; i<n; i++){
+		if(board[i][col]==num){
+			return false;
+		}
+	}
+
+	for(int i=0; i<n; i++){
+		if(board[row][i]==num){
+			return false;
+		}
+	}
+
+	int sqrt = (int) Math.sqrt(n);
+	int boxRowStart = row - row%sqrt;
+	int boxColStart = col - col%srqt;
+
+	for(int i=boxRowStart; i<boxRowStart+sqrt; i++){
+		for(int j=boxColStart; j<boxColStart+sqrt; j++){
+			if(board[i][j]==num){
+				return false;
+			}
+		}
+	}
+}
+
+8.[N QUEEN PROBLEM USING BACKTRACKING]
+Eg:
+i/p: 4
+o/p: [[0,Q,0,0],
+      [0,0,0,Q],
+      [Q,0,0,0],
+      [0,0,Q,0]]
+
+
+Solution:
+M1:
+public static void solveNQ(int n){
+	int[][] board = new int[n][n];
+	ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+	if(solveNQUtil(board, 0, n, list)){
+		printSolution(list);
+	}else{
+		sop("No Solution Found");
+	}
+}
+
+public static boolean solveNQUtil(int[][] board, int col, int n, ArrayList<ArrayList<Integer>> list){
+	if(col>=n){
+		ArrayList<Integer> res = frameTheSolution(board, n);
+		list.add(res);
+		return true;
+	}
+
+	boolean res = false;
+	for(int row=0; row<n; row++){
+		if(isSafe(board, row, col, n)){
+			board[row][col]=1;
+			res = solveNQUtil(board, col+1, n, list)||res;
+			board[row][col] = 0;
+		}
+	}
+	return res;
+} 
+
+public static boolean isSafe(int[][] board, int row, int col, int n){
+	for(int i=0; i<col; i++){
+		if(board[row][i]==1){
+			return false;
+		}
+	}
+
+	for(int i=row, j=col; i>=0 && j>=0; i--,j--){
+		if(board[i][j]==1){
+			return false;
+		}
+	}
+
+	for(int i=row, j=col; i<n&&j>=0; i++,j--){
+		if(board[i][j]==1){
+			return false;	
+		}
+	}
+	return true;
+}
 
 
 9.[WORD BOGGLE] Find all possible words that can be formed by a sequence of adjacent characters. 
