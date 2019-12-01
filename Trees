@@ -2,7 +2,7 @@
 
 1.[LOWEST COMMON ANCESTOR OF BINARY TREE]
 Eg:
-i/P:Image
+Image: LCA of BinaryTree & Spiral form
 A binary tree is given as input.
 LCA(4,5)=2
 LCA(4,6)=1
@@ -57,8 +57,8 @@ Node findLCAUtil(Node node, int n1, int n2){
 
 2.[PRE ORDER TRAVERSAL]
 Eg:
-i/p:
-o/p:
+i/p: Image: Pre, In, Post, Level Order
+o/p: 1 2 4 5 3
 
 Logic::
 void printPreorder(Node node){ 
@@ -77,8 +77,8 @@ void printPreorder(Node node){
 
 3.[IN ORDER TRAVERSAL]
 Eg:
-i/p:
-o/p:
+i/p: Image: Pre, In, Post, Level Order
+o/p: 4 2 5 1 3
 
 
 Logic::
@@ -99,8 +99,8 @@ void printInorder(Node node){
 
 4.[POST ORDER TRAVERSAL]
 Eg:
-i/p:
-o/p:
+i/p: Image: Pre, In, Post, Level Order
+o/p: 4 5 2 3 1
 
 Logic::
 void printPostorder(Node node){ 
@@ -121,8 +121,11 @@ void printPostorder(Node node){
 
 5.[LEVEL ORDER TRAVERSAL]
 Eg:
-i/p:
-o/p:
+i/p: Image: Pre, In, Post, Level Order
+o/p: 
+1
+2 3
+4 5	
 
 Logic::
 
@@ -201,8 +204,8 @@ void printLevelOrder(){
 
 6.[CONNECT NODES AT SAME LEVEL (Level Order Traversal)]
 Eg:
-i/p:
-o/p:
+i/p: Image: ConnectNodesAtSameLvl(Input)
+o/p: Image: ConnectNodesAtSameLvl(Output)
 
 
 Solution:
@@ -287,7 +290,7 @@ Node getNextRight(Node p){
 
 7.[LEVEL ORDER TRAVERSAL IN SPIRAL FORM]
 Eg:
-i/p:
+i/p: Image: LCA of BinaryTree & Spiral form
 o/p:
 1
 2,3
@@ -365,10 +368,9 @@ void printSpiral(Node node){
 	}
 }
 
-
 8.[LOWEST COMMON ANCESTOR IN A BINARY SEARCH TREE]
-Eg:
-i/p:
+Eg: 
+i/p: Image : LCA of BST
 o/p: 
 lca(10,14) = 12
 lca(14,8) = 8
@@ -396,9 +398,7 @@ Node lca(Node node, int n1, int n2){
 
 
 9.[DELETE A NODE/VALUE FROM BST]
-Eg:
-i/p:
-o/p:
+Eg:Image : Delete a node in BST
 
 Solution:
 M1: O(H)|O(H) - Best case, O(N)|O(N) - Worst case in case of skewed trees 
@@ -433,8 +433,8 @@ Node deleteRec(Node root, int key){
 
 10.[VALIDATE BST]
 Eg:
-i/p:
-o/p:
+i/p: Image : Validate BST
+o/p:true/false
 
 Solution:
 M1: O(N)|O(H)
@@ -463,9 +463,8 @@ boolean VBU(Node tree, int minValue, int maxValue){
 
 
 11.[INVERT BINARY TREE(MIRRORED TREE)]
-Eg:
-i/p:
-o/p:
+Eg: Image : Inversion of BinaryTree(Mirrored Tree)
+
 
 Solution:
 M1: Using Queue - O(N)|O(N)
@@ -506,4 +505,5 @@ invertBinaryTree(Node tree){
 	invertBinaryTree(tree.left);
 	invertBinaryTree(tree.right);
 }
+
 
