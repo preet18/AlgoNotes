@@ -507,3 +507,192 @@ invertBinaryTree(Node tree){
 }
 
 
+12.[HEIGHT OF A BINARY TREE]
+Eg:
+i/p:
+o/p:
+
+M1: O(N)|O(H)
+N - No of nodes
+H - stack space used for recursion
+
+Logic::
+int maxDepth(Node node){
+	if(node==NULL){
+		return 0;
+	}else{
+		int lDepth = maxDepth(node.left);
+		int rDepth = maxDepth(node.right);
+
+		if(lDepth > rDepth){
+			return lDepth+1;
+		}else{
+			return rDepth+1;
+		}
+	}
+}
+
+13.[LEFT VIEW OF A BINARY TREE]
+Eg:
+i/p:
+o/p:
+
+M1: Using height of the tree and going level by level - O(H^2)|O(H)
+H - Height of the tree
+
+Logic::
+void leftView(Node root){
+	if(root==null){
+		return;
+	}
+	int height = findHeight(root,0);
+	S.O.P(root.data);
+	for(int i=1; i<=height; i++){
+		printLeftNode(root, i, 0);
+	}
+}
+
+int findHeight(Node root, int count){
+	if(root==null){
+		return count;
+	}
+	return Math.max(findHeight(root.left, count), findHeight(root.right, count))+1;
+}
+boolean printLeftNode(Node root, int depth, int level){
+	if(depth==level){
+		SOP(root.data);
+		return true;
+	}
+
+	boolean inserted = false;
+	if(tree.left!=null){
+		inserted = printLeftNode(root.left, depth, level+1);
+	}
+	if(tree.right!=null && !inserted){
+		inserted = printLeftNode(root.right, depth, level+1);
+	}
+	return inserted;
+}
+
+
+M2: Using recursion - O(N)|O(N)
+N - No of nodes in the tree
+
+
+Logic::
+static int maxLevel = 0;
+void leftView(Node root){
+	leftViewUtil(root, 1);
+}
+
+leftViewUtil(Node root, int level){
+	if(node==null){
+		return;
+	}
+	
+	if(maxLevel<level){
+		SOP(root.data);
+	}
+
+	leftViewUtil(root.left, level+1);
+	leftViewUtil(root.right, level+1);
+}
+
+
+M3: Using Queue - O(N)|O(N)
+N - No of nodes in the tree
+
+void leftView(Node node){
+	Queue<Node> q = new LinkedList<>();
+	q.add(node);
+	q.add(null);
+	while(!q.isEmpty()){
+		boolean first = true;
+		while(q!=null){
+			Node front = node.poll();
+			if(first){
+				SOP(front.val);
+				first = false;
+			}
+			if(front.left!=null){
+				q.add(front.left);
+			}
+			if(front.right!=null){
+				q.add(front.right);
+			}
+		}
+		q.poll();
+		q.add(null);
+	}
+}
+
+
+14.[MAX PATH SUM BETWEEN TWO LEAVES IN A BINARY TREE] - Math path sum from one leaf node to other leaf node
+Eg:
+i/p:
+o/p:
+
+Solution
+M1: O(N)|O(H)
+N - no of nodes in the tree
+H - Height of the tree - is N - if it is a skewed tree
+
+class Res{
+	int val;
+}
+
+int maxPathSum(Node root){
+	Res res = new Res();
+	res.val = Integer.MIN_VALUE;
+	maxPathSumUtil(root, res);
+	return res.val;
+}
+
+int maxPathSumUtil(Node root, Res res){
+	if(root==null){
+		return 0;
+	}
+	if(root.left==null && root.right==null){
+		return root.data;
+	}
+	int ls = maxPathSumUtil(root.left, res);
+	int rs = maxPathSumUtil(root.right, res);
+	
+	if(root.left!=null && root.right!=null){
+		res = Math.max(res, (ls+rs+root.data));
+		return Math.max(ls,rs)+root.data;
+	}
+	return (root.left==null)?rs+root.data:ls+root.data;
+}
+
+
+15.[CHECK FOR BALANCED TREE] A tree is balanced, if diff btw heights of left and right subtrees is not more than one for all the nodes of tree
+Eg:
+i/p:
+o/p:
+
+Solution:
+M1: O(N)|O(H)
+
+Logic::
+static boolean balanced = true;
+
+boolean isBalanced(Node root){
+	balanced = true;
+	height(root, 0);
+	return balanced;
+}
+
+static int height(Node root, int count){
+	if(root==null){
+		return count;
+	}
+	int ls = height(root.left, count+1);
+	int rs = height(root.right, count+1);
+	if(Math.abs(ls-rs)>1){
+		balanced = false;
+	}
+	return Math.max(ls,rs);
+}
+
+
