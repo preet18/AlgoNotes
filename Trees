@@ -696,3 +696,252 @@ static int height(Node root, int count){
 }
 
 
+16.[MAX PATH SUM IN A BINARY TREE](mayn't be btw leaf nodes)
+Eg:
+i/p:
+o/p:
+
+Solution:
+M1: (If nodes are just +ve numbers)-O(N)|O(H)
+
+Logic::
+Integer maxPathSum(BinaryTree tree){
+	if(tree=null){
+		return 0;
+	}
+	Integer lh = findSum(tree.left, 0);
+	Integer rh = findSum(tree.right, 0);
+	
+	return Math.max(lh+rh+tree.value, Math.max(maxPathSum(tree.left), maxPathSum(tree.right)));
+}
+
+public static Integer findSum(BinaryTree tree, int count){
+	if(tree==null)
+		return count;
+	return Math.max(findSum(tree.left, tree.value+count), findSum(tree.right, tree.value+count));
+}
+
+
+M2: O(N)|O(log(N))
+
+Logic::
+public static Integer maxPathSum(BinaryTree tree){
+	ArrayList<Integer> maxSummArray = findMaxSum(tree);
+	return maxSumArray.get(1);
+}
+
+ArrayList<Integer> findMaxSum(BinaryTree tree){
+	if(tree==null)
+		return new ArrayList<Integer>(Arrays.asList(0,0));
+
+	ArrayList<Integer> leftMaxSumArray = findMaxSum(tree.left);
+	Integer leftMaxSumAsBranch = leftMaxSumArray.get(0);
+	Integer leftMaxSumAsPath = leftMaxSumArray.get(1);
+
+	ArrayList<Integer> rightMaxSumArray = findMaxSum(tree.left);
+	Integer rightMaxSumAsBranch = rightMaxSumArray.get(0);
+	Integer rightMaxSumAsPath = rightMaxSumArray.get(1);
+
+	Integer maxChildSumAsBranch = Math.max(leftMaxSumAsBranch, rightMaxSumAsBranch);
+	Integer maxSumAsBranch = Math.max(maxChildSumAsBranch+tree.value, tree.value);
+	Integer maxSumAsRootNode = Math.max(leftMaxSumAsBranch+tree.value+rightMaxSumAsBranch, maxSumAsBranch);
+	
+	int maxPathSum = Math.max(Math.max(leftMaxPathSum, rightMaxPathSum), maxSumAsRootNode);
+
+	return new ArrayList<Integer>(Arrays.asList(maxSumAsBranch, maxPathSum)); 
+
+}
+
+
+17.[PRINT BINARY TREE IN VERTICAL ORDER]
+Eg:
+i/p:
+o/p:
+
+Solution:
+M1: Finding the width of the tree and then printing elements from min to max width - O(W*N)
+W - Width of binary Tree
+N - No of nodes in binary Tree
+
+static int min = 0;
+static int max = 0;
+void verticalOrder(Node node){
+	findMinMax(node, 0);
+	for(int line_no=min; line_no<=max; line_no++){
+		printVerticalLine(node, line_no, 0);
+		SOP("");
+	}
+}
+
+void findMinMax(Node node, int hd){
+	if(node==null)
+		return;
+	if(hd<min){
+		min = hd;
+	}else if(hd>max){
+		max = hd;
+	}
+	
+	findMinMax(node.left, hd-1);
+	findMinMax(node.right, hd+1);
+}
+
+void printVerticalLine(Node node, int line_no, int hd){
+	if(node==null)
+		return;
+	if(line_no==hd)
+		System.out.print(node.data+" ");
+	printVerticalLine(node.left, line_no, hd-1);
+	printVerticalLine(node.right, line_no, hd+1);
+}
+
+
+M2: Creating a map with key as width and values as list - O(N)|O(N)
+
+Logic::
+
+printVerticalOrder(Node root){
+	if(root==null)
+		return;
+	Map<Integer, vector<Integer>> m = new HashMap<>();
+	int hd = 0;
+	
+	Queue<Pair> q = new Queue<Pair>();
+	q.add(pair(root, hd));
+	while(!q.isEmpty()){
+		Pair temp = q.poll();
+		hd = temp.hd;
+		Node node = temp.node;
+		m.put(hd, node.key));
+		if(node.left!=null)
+			q.add(Pair(node.left, hd-1));
+		if(node.right!=null)
+			q.add(Pair(node.right, hd+1));
+	}
+	Now, print the map
+}
+
+
+18.[MINIMUM COST PATH] Given a 2d grid, each cell - indicates a cost, which represents a cost to traverse through that cell we need to find a path from top left cell to bottom right cell, by which total cost incurred in minimum.
+Eg:
+i/p:
+o/p:
+
+SOlution:
+M1:
+
+Logic::
+
+static int minSum = Integer.MAX_VALUE;
+static boolean[][] visited;
+
+public static int minCost(int[][] mat, int n){
+	visited = new boolean[n][n];
+	
+	minSum = Integer.MAX_VALUE;
+	minCostUtil(mat, n, 0, 0, mat[0][0]);
+	return minSum;
+}
+
+
+public static void minCostUtil(int[][] mat, int n, int i, int j, int sum){
+	if(i==(n-1) && j==(n-1)){
+		if(minSum>sum){
+			minSum = sum; 
+		}
+		return;
+	}
+
+	visited[i][j] = true;
+	if(isSafe(n, i+1, j)){
+		minCostUtil(mat, n, i+1, j, sum+mat[i+1][j]);
+	}
+	if(isSafe(n, i-1, j)){
+		minCostUtil(mat, n, i-1, j, sum+mat[i+1][j]);
+	}
+	if(isSafe(n, i, j-1)){
+		minCostUtil(mat, n, i, j-1, sum+mat[i+1][j]);
+	}
+	if(isSafe(n, i, j+1)){
+		minCostUtil(mat, n, i, j+1, sum+mat[i+1][j]);
+	}
+	visited[i][j] = false;
+	
+}
+
+public static boolean isSafe(int n, int i, int j){
+	if(i<0||i>=n||j<0||j>=n||visited[i][j])
+		return false;
+	return true;
+}
+
+
+M2:
+
+Logic::
+
+class Node{
+	int x, y, dist;
+	Node(int x, int y, int dist){
+		this.x = x;
+		this.y = y;
+		this.dist = dist;
+	}
+}
+
+boolean valid(int i, int j, int n){
+	if(i<=0||i>=n||j<0||j>=n){
+		return false;
+	}
+	return true;
+}
+
+
+static int dx[] = {-1, 0, 0, 1};
+static int dy[] = {0, -1, 1, 0};
+static int dist[][];
+static boolean visited[][];
+
+public static int minCost(int[][] mat, int n){
+	dist = new int[n][n];
+	for(int i=0; i<n; i++){
+		for(int j=0; j<n; j++){
+			dist[i][j] = Integer.MAX_VALUE;
+		}
+	}
+	
+	visited = new boolean[][];
+
+	Queue<Node> q = new PriorityQueue<Node>(new 
+				Comparator<Node>(){
+					public int compare(Node a, Node b){
+						return a.dist-b.dist;
+					}
+				});
+	dist[0][0] = mat[0][0];
+	q.add(new Node(0,0,dist[0][0]));
+
+	while(!q.isEmpty()){
+		Node node = (Node)q.remove();
+		if(node.x==(n-1) && node.y==(n-1))
+			return dist[node.x][node.y];
+
+		if(visited[node.x][node.y]){
+			continue;
+		}
+		visited[node.x][node.y]=true;
+		for(int k=0; k<4; k++){
+			int u = node.x+dx[k];
+			int v = node.y+dy[k];
+			if(valid(u,v) && !visited[u][v]){
+				if(dist[u][v] > dist[node.x][node.y]+mat[u][v]){
+					dist[u][v] = dist[node.x][node.y]+mat[u][v]
+				}
+				q.add(new Node(u,v,dist[u][v]));
+			}				
+		
+					
+		}
+	}
+	return -1;
+}
