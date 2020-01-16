@@ -1,0 +1,22 @@
+Let’s  learn what is a binary search tree and what are different types of problems we should know related to binary search tree.
+
+Binary Search Tree.
+Binary search tree is a type of tree where each node contains at max 2 nodes and usually value in the left node is less than the value in the root node and right node value is greater than or equal to the root node value.
+	
+Simple right!! Now let’s dive into the different model problems that we need to cover to get a good grasp on how to solve the bst problems.
+
+TYPE 1 : Basic Operations on BST
+1. Search 
+2. Insertion
+3. Deletion
+
+TYPE 2 : Traversals.
+1. Preorder
+2. Inorder
+3. Postorder
+
+TYPE 3 : Conversions from sequence to BST and back to sequence
+1. Serialization and Deserialization
+2. Convert sorted Array to BST
+
+TYPE 4: 
