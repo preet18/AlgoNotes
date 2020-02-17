@@ -81,16 +81,12 @@
 		hm.put("Rahul", "SSE");
 		hm.put("Sattu", "SE");
 		hm.put("Gaurav", "SSE");
-		hm.put("Preeti", "SE");
 		hm.put("Sattu", "SSE");
-		/*hm.put("Nayudu", "SSE");
-		hm.put("Mahathi", "SE");
-		hm.put("Naga", "SE");*/
 		
 		Entry e = hm.get("Awadh");
 		System.out.println(e.getValue());
 		
-		//int count = 0;
+		//To print all the values in the hashmap
 		for(int i=0; i<SIZE; i++){
 			System.out.println("Index :: " + i);
 			Entry entry = table[i];
