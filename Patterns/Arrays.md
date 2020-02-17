@@ -14,5 +14,6 @@
 |S.NO|PROBLEM|PLATFORM|DIFFICULTY LEVEL|
 |----|-------|--------|----------------|
 |1.|Largest subarray with equal number of 0s and 1s|[GFG](https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/)|E|
+|2.|Find subarray with given sum|[GFG](https://www.geeksforgeeks.org/find-subarray-with-given-sum/)|E|
 
 2. BINARY SEARCH
