@@ -16,4 +16,10 @@
 |1.|Largest subarray with equal number of 0s and 1s|[GFG](https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/)|E|
 |2.|Find subarray with given sum|[GFG](https://www.geeksforgeeks.org/find-subarray-with-given-sum/)|E|
 
+### 4. SORTING
+|S.NO|PROBLEM|PLATFORM|DIFFICULTY LEVEL|
+|----|-------|--------|----------------|
+|1.|Sort an array of 0s, 1s and 2s|[GFG](https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/)|VE|
+
+
 2. BINARY SEARCH
