@@ -86,7 +86,7 @@
 		Entry e = hm.get("Awadh");
 		System.out.println(e.getValue());
 		
-		//To print all the values in the hashmap
+		//To print all the entries in the hashmap
 		for(int i=0; i<SIZE; i++){
 			System.out.println("Index :: " + i);
 			Entry entry = table[i];
