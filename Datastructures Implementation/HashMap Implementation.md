@@ -1,6 +1,6 @@
 ```public class HashMap {
 
-	private static final int SIZE = 4;
+	private static final int SIZE = 16;
 	
 	private static Entry table[] = new Entry[SIZE];
 	
