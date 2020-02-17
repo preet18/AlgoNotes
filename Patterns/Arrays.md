@@ -10,4 +10,9 @@
 |----|-------|--------|----------------|
 |1.|Equilibrium point|[GFG](https://www.geeksforgeeks.org/equilibrium-index-of-an-array/)|VE|
 
+### 3. FINDING SUBARRAYS
+|S.NO|PROBLEM|PLATFORM|DIFFICULTY LEVEL|
+|----|-------|--------|----------------|
+|1.|Largest subarray with equal number of 0s and 1s|[GFG](https://www.geeksforgeeks.org/largest-subarray-with-equal-number-of-0s-and-1s/)|E|
+
 2. BINARY SEARCH
