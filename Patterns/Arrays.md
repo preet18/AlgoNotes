@@ -27,4 +27,7 @@
 |1.|Sort an array of 0s, 1s and 2s|[GFG](https://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/)|VE|
 
 
-2. BINARY SEARCH
+### 6. BINARY SEARCH
+|S.NO|PROBLEM|PLATFORM|DIFFICULTY LEVEL|
+|----|-------|--------|----------------|
+|1.|Binary Search|[GFG](https://www.geeksforgeeks.org/binary-search/)|VE|
