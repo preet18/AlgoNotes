@@ -11,9 +11,9 @@
 
 
 #DML
-SNo|Query
----|-----
-1. | SELECT... FROM tableName
-2. | INSERT INTO tableName(column1, column2) VALUES("value1", "value2")
-3. | UPDATE tableName SET column1="value1" WHERE
-4. | DELETE... FROM tableName WHERE  
+|SNo|Query|
+|---|-----|
+|1. | SELECT... FROM tableName|
+|2. | INSERT INTO tableName(column1, column2) VALUES("value1", "value2")|
+|3. | UPDATE tableName SET column1="value1" WHERE|
+|4. | DELETE... FROM tableName WHERE|  
