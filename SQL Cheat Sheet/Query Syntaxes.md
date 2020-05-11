@@ -18,7 +18,7 @@
 |3. | UPDATE tableName SET column1="value1" WHERE|
 |4. | DELETE... FROM tableName WHERE|
 
-# DCL #
+# DCL (DATA CONTROL LANGUAGE) #
 
 |SNo|Query|
 |---|------|
