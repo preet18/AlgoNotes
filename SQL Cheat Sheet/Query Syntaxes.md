@@ -24,3 +24,9 @@
 |---|------|
 |1.|GRANT|
 |2.|REVOKE|
+
+# TCL (TRANSACTIONAL CONTROL LANGUAGE) #
+|SNo|Query|
+|---|-----|
+|1.|COMMIT|
+|2.|ROLLBACK|
