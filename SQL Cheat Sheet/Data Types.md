@@ -21,6 +21,7 @@
 
 # DATE & TIME #
 | Type | Format |
+|------|--------|
 | DATE | YYYY-MM-DD |
 | DATETIME | YYYY-MM-DD HH:MM:SS |
 | TIMESTAMP | |
