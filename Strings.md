@@ -1,4 +1,4 @@
-TECHNIQUES USED TO SOLVE STRING PROBLEMS
+# TECHNIQUES USED TO SOLVE STRING PROBLEMS
 
 Find all the substrings of the string
 Odd length substring and even length substring technique
@@ -8,15 +8,15 @@ Suffix Trie
 ROMAN NUMBERS I - 1 V - 5 X - 10 L - 50 C - 100 D - 500 M - 1000 X-BAR - 5000 M-BAR - 10000
 
 
-🌟️PROBLEMS ON STRING🌟️ 
-1.[SUBSTRINGS] Find all the substrings of the string 
+# 🌟️PROBLEMS ON STRING🌟️ 
+### 1.[SUBSTRINGS] Find all the substrings of the string 
 Eg: 
 i/p: abc 
 o/p: {'a', 'b', 'c', 'ab', 'bc', 'abc'}
 
-Solution: 
-M1: Finding the different length substrings possible in the string - O(N^2)|O(1) (N - length of string) 
-Logic:: 
+### Solution: 
+**M1:** Finding the different length substrings possible in the string - O(N^2)|O(1) (N - length of string) 
+#### Logic:: 
 	for(len = 1 to N){// different length substrings possible
 		for(start=0 to (N-len)){// start index of every substring
 			end = start+len-1; //end index of every substring
@@ -24,16 +24,16 @@ Logic::
 		}
 	}
 
-2.[LONGEST PALINDROMIC SUBSTRING] Find the longest substring which is a palindrome.
+### 2.[LONGEST PALINDROMIC SUBSTRING] Find the longest substring which is a palindrome.
 Eg:
 i/p: abaxyzzyxf
 o/p: xyzzyx
 
-Solution: 
-M1: Find all the substrings of the string and check whether it is a palindrome or not - O(N^3)|O(1)
+### Solution: 
+**M1:** Find all the substrings of the string and check whether it is a palindrome or not - O(N^3)|O(1)
 	O(N^2) * O(N) - O(N^2) - No of substrings are possible, O(N) - to verify if its a palindrome or not
-M2: Find the odd length and even length palindromes and keep track of the longest palindrome seen so far - O(N^2)|O(1)
-Logic::
+**M2:** Find the odd length and even length palindromes and keep track of the longest palindrome seen so far - O(N^2)|O(1)
+#### Logic::
 	String result;
 	for(id 1 to N){
 		odd = getLongestPalindrome(string, id-1, id+1); // {a}b{axyzzyzxf}
@@ -51,14 +51,15 @@ Logic::
 		result = string.substring(leftIdx+1, rightIdx);	
 	}
 
-3.[LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS] Length of the longest substring without repeating characters 
+### 3.[LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS] Length of the longest substring without repeating characters 
 Eg:
 i/p: geeksforgeeks
 o/p: 7 - (eksforg) or (ksforge)
 
-Solution: M1: Find all the substrings, check if substring contains unique characters or not - O(N^3)|O(1)
-M2: To scan the string from left to right and keep track of the max. length Non-Repeating Character Substring(NRCS) - O(N)|O(1)
-Logic:
+### Solution: 
+**M1:** Find all the substrings, check if substring contains unique characters or not - O(N^3)|O(1)
+**M2:** To scan the string from left to right and keep track of the max. length Non-Repeating Character Substring(NRCS) - O(N)|O(1)
+#### Logic:
 	//Hash table to store the char last visited position in the string
 	int[] arr = new int[26];
 	for(i=0 to 26)
@@ -89,15 +90,15 @@ Logic:
 	}
 	print(str(start, start+max));
 	
-4.[ROMAN NUMBER TO INTEGER] Given a roman number in string format find its numerical value.
+### 4.[ROMAN NUMBER TO INTEGER] Given a roman number in string format find its numerical value.
 Eg:
 i/p: VIII , o/p: 8
 i/p: L, o/p: 50
 i/p: IL, o/p: 49
 
-Solution:
-M1 : Scan the string from right to left, and add the val to sum if val>=prev, other substract from sum - O(N)|O(1)
-Logic::
+### Solution:
+**M1:** Scan the string from right to left, and add the val to sum if val>=prev, other substract from sum - O(N)|O(1)
+#### Logic::
 int sum=0; int prev = -1
 for(i=(N-1) to 0){
 	var = findNumericValue(str.charAt(i));
@@ -109,7 +110,7 @@ for(i=(N-1) to 0){
 }
 
 
-ROMAN NUMBERS
+### ROMAN NUMBERS
 I - 1
 V - 5
 X - 10
@@ -120,27 +121,27 @@ M - 1000
 X-BAR - 5000
 M-BAR - 10000
 
-5.[IMPLEMENT ATOI] Converting Text to Integer
+### 5.[IMPLEMENT ATOI] Converting Text to Integer
 Eg: 
 i/p: 123, o/p:123
 i/p: 21a, o/p:-1
 
-M1:Typecasting string to Integer, if exception occurs return -1  - O(1)|O(1)
-M2:Verify the sign based on 1st character, and then typecaste every charcter from 1 to N and add it to the sum - O(N)O(1)
+**M1:** Typecasting string to Integer, if exception occurs return -1  - O(1)|O(1)
+**M2:** Verify the sign based on 1st character, and then typecaste every charcter from 1 to N and add it to the sum - O(N)O(1)
 
-6.[PERMUTATIONS] Find all the permutations of the string
+### 6.[PERMUTATIONS] Find all the permutations of the string
 Eg: 
 i/p: [ABA] 
 o/p: [AAB, ABA, BAA]  
 
-Solution:
-M1: Mainting the alpha array and their freq array - O(N!)
+### Solution:
+**M1:** Mainting the alpha array and their freq array - O(N!)
 If there are repeating characters, O(N!/repeatNo!) permutations possible.
 If there are non repeating characters, O(N!)
 
 In above example A is repeated 2 times - so permutations possible = (3!/2!) = 6
 
-Solution:
+### Solution:
 //Forming the count map(TreeMap) 
 for(char ch:input){
 	if(countMap.containsKey(ch)){
@@ -183,29 +184,29 @@ permuteUtil(char[] str, int[] count, char[] result, int level){
 }
 
 
-7.[LONGEST COMMON SUBSTRING] Given two strings, find the common substring present in both the strings.
+### 7.[LONGEST COMMON SUBSTRING] Given two strings, find the common substring present in both the strings.
 Eg:
 i/p: ABCDGH, ACDGHR
 o/p: CDGH
  
-Solution:
-M1: Find all the substrings of String1 and add them to a list1, and find substrings of String2 now check if they are present in list1. - O(N^2+M^2)|O(N^3)
-M2: Using Dynamic Programming - O(N*M)|O(N*M)
+### Solution:
+**M1:** Find all the substrings of String1 and add them to a list1, and find substrings of String2 now check if they are present in list1. - O(N^2+M^2)|O(N^3)
+**M2:** Using Dynamic Programming - O(N*M)|O(N*M)
 Logic::
 
 
-8.[RECURSIVELY REMOVE ALL ADJACENT DUPLICATES] Recursively remove all the adjacent duplicates from the given string. 
+### 8.[RECURSIVELY REMOVE ALL ADJACENT DUPLICATES] Recursively remove all the adjacent duplicates from the given string. 
 Eg: 
 i/p1: geeksforgeeg 
 o/p1: gksfor 
 i/p2: mississipie 
 o/p1: mipie
 
-Solution: 
-M1: Using Iterative Approach - O(N^N)|O(1) 
-M2: Using the 2 Pointers such that maintaining the prev to hold the last char deleted - O(N)|O(1) 
-M3: Using Recursive approach - O(N)|O(1) 
-Logic::
+### Solution: 
+**M1:** Using Iterative Approach - O(N^N)|O(1) 
+**M2:** Using the 2 Pointers such that maintaining the prev to hold the last char deleted - O(N)|O(1) 
+**M3:** Using Recursive approach - O(N)|O(1) 
+#### Logic::
 removeUtil(String str, char last_removed){ 
 //If string is of length 0 or 1, just return the string 
 	if(str.length()==0||str.length()==1){ 
@@ -236,8 +237,8 @@ removeUtil(String str, char last_removed){
 	return (str.charAt(0)+rem_str);
 }
 
-M4: Using stack - O(N)|O(N)
-Logic::
+**M4:** Using stack - O(N)|O(N)
+#### Logic::
 func(String a){
 		Stack<Character> st = new Stack<>();
 		char prev = a.charAt(0);
@@ -261,12 +262,12 @@ func(String a){
 		System.out.println(new StringBuilder(ans).reverse() + " "); 
 	}
 }
-9.[PATTERN MATCHER] Given a pattern of (X,Y), and a string str, need to find the X, Y values from the given string. 
+### 9.[PATTERN MATCHER] Given a pattern of (X,Y), and a string str, need to find the X, Y values from the given string. 
 Eg: 
 i/p: "XXYXXY", "gogopowerrangergogopowerranger" 
 o/p: ["go", "powerranger"];
 
-Solution: 
+### Solution: 
 M1: Brute Force - Find all the substrings and do the append everything 
 M2: Just iterating over the string to find the X and Y based on the given pattern - O(N^2+M)|O(N+M) N - String length, M - Pattern Length
 Logic::
