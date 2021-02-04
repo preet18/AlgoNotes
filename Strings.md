@@ -32,6 +32,7 @@ o/p: xyzzyx
 ### Solution: 
 **M1:** Find all the substrings of the string and check whether it is a palindrome or not - O(N^3)|O(1)
 	O(N^2) * O(N) - O(N^2) - No of substrings are possible, O(N) - to verify if its a palindrome or not
+	
 **M2:** Find the odd length and even length palindromes and keep track of the longest palindrome seen so far - O(N^2)|O(1)
 #### Logic::
 	String result;
