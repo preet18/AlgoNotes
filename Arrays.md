@@ -26,7 +26,7 @@ Using Binary Search
 
 **Complexity:** O(log(N))|O(1)
 
-##### Logic
+##### Logic:
 ```
 public int search(int[] arr, int target) {
         int lo = 0;
