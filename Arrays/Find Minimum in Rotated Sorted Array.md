@@ -1,54 +1,79 @@
-### [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
-Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
-
-[4,5,6,7,0,1,2] if it was rotated 4 times.
-[0,1,2,4,5,6,7] if it was rotated 7 times.
-Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
-
-Given the sorted rotated array nums, return the minimum element of this array.
+### [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+Given a string s, find the length of the longest substring without repeating characters.
 
 ##### Example 1:
-**Input:** nums = [3,4,5,1,2]
-**Output:** 1
+**Input:** s = "abcabcbb"
+**Output:** 3
 
 ##### Example 2:
-**Input:** nums = [4,5,6,7,0,1,2]
-**Output:** 0
+**Input:** s = "bbbbb"
+**Output:** 1
 
 ##### Example 3:
-**Input:** [11,13,15,17]
-**Output:** 11
+**Input:** s = "pwwkew"
+**Output:** 3
 
 ### Solution
 #### Method 1:
-Using linear search
+Find all the substrings, check if substring contains unique characters or not.
+
+**Complexity:** O(N^3)|O(1)
+
+#### Method 2:
+To scan the string from left to right and keep track of the max. length Non-Repeating Character Substring(NRCS) 
 
 **Complexity:** O(N)|O(1)
 
-#### Method 2:
-Using Binary Search
-
-**Complexity:** O(log(N))|O(1)
-
 ##### Logic:
+###### USING HASHMAP
 ```
 class Solution {
-    public int findMin(int[] nums) {
-        int min = Integer.MAX_VALUE;
-        int lo = 0;
-        int hi = nums.length - 1;
-        while(lo<=hi){
-            int mid = (lo+hi)/2;
-            if(nums[lo]<=nums[mid]){
-                min = Math.min(min, nums[lo]);
-                lo = mid+1;
-            }else{//if(nums[mid]<=nums[hi])
-                min = Math.min(nums[mid], min);
-                hi = mid-1;
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        int max=0;
+        for(int i=0,j=0; i<s.length(); i++){
+            if(map.containsKey(s.charAt(i))){
+                j = Math.max(j,map.get(s.charAt(i))+1);
+                // We are putting Math.max(j,map.get(s.charAt(i))+1) because in case of abba, if we just give map.get(s.charAt(i))+1, then it will fail.
             }
+            map.put(s.charAt(i),i);
+            max = Math.max(max, i-j+1);
         }
-        return min;
+        return max;
     }
 }
+```
+
+###### USING HASHTABLE
+```
+//Hash table to store the char last visited position in the string
+int[] arr = new int[26];
+for(i=0 to 26)
+	arr[i] = -1;
+
+start = 0; //Start index of longest unique substring
+st = 0; //start index of current substring
+max = 0; //maxLength of substring
+
+for(i=0 to n){
+	pos = (int) str.charAt(i)-97;
+	if(arr[pos]==-1){
+		arr[pos]=i;
+	}else{
+		if(arr[pos]>=st){ // if char is appearing after the starting index
+			if((i-st)>max){ // current substring length is greater then maxlength
+				start = st;
+				max = (i-st);
+			}
+			st = arr[pos]+1;
+		}
+		arr[pos] = i;
+	}
+}
+if((n-st)>max){
+	start = st;
+	max = (n-st);
+}
+print(str(start, start+max));
 ```
 
