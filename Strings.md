@@ -143,6 +143,7 @@ If there are non repeating characters, O(N!)
 In above example A is repeated 2 times - so permutations possible = (3!/2!) = 6
 
 ### Solution:
+```
 //Forming the count map(TreeMap) 
 for(char ch:input){
 	if(countMap.containsKey(ch)){
@@ -183,7 +184,7 @@ permuteUtil(char[] str, int[] count, char[] result, int level){
 		count[i]++;
 	}
 }
-
+```
 
 ### 7.[LONGEST COMMON SUBSTRING] Given two strings, find the common substring present in both the strings.
 Eg:
