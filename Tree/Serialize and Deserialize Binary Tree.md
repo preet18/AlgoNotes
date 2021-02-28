@@ -10,22 +10,22 @@ Clarification: The input/output format is the same as how LeetCode serializes a 
 ![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image7.png)
 
 **Input:** root = [1,2,3,null,null,4,5]\
-**Output:** [1,2,3,null,null,4,5]\
+**Output:** [1,2,3,null,null,4,5]
 
 ##### Example 2:
 
 **Input:** root = []\
-**Output:** []\
+**Output:** []
 
 ##### Example 3:
 
 **Input:** root = [1]\
-**Output:** [1]\
+**Output:** [1]
 
 ##### Example 4:
 
 **Input:** root = [1,2]\
-**Output:** [1,2]\
+**Output:** [1,2]
 
 ##### Constraints:
 
