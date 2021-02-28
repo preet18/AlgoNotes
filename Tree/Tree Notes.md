@@ -24,3 +24,6 @@ In this tree all the level are filled completely. Except the last level and in l
 ## 5. Perfect Binary Tree
 In this tree every node consists of 2 nodes, all the nodes are completely filled and leaf nodes are on the same level.
 
+## 6. Balanced Binary Tree
+In this tree, the height difference left subtree and right subtree is less than or equal to 1.
+
