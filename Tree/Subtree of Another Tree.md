@@ -3,16 +3,22 @@ Given two non-empty binary trees s and t, check whether tree t has exactly the s
 
 ##### Example 1:
 Given tree s:
+
 ![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image3.png)
+
 Given tree t:
+
 ![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image4.png)
 
 Return true, because t has the same structure and node values with a subtree of s.
 
 ##### Example 2:
 Given tree s:
+
 ![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image5.png)
+
 Given tree t:
+
 ![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image6.png)
 
 Return false.
