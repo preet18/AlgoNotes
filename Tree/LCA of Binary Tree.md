@@ -3,15 +3,17 @@
 
 Let T be a rooted tree. The lowest common ancestor between two nodes n1 and n2 is defined as the lowest node in T that has both n1 and n2 as descendants (where we allow a node to be a descendant of itself).
 
+![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/LCA%20of%20Binary%20Tree.png)
+
 ##### Example 1:
-![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image2.png)
+![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/LCA%20of%20Binary%20Tree%20-%20Example%201.png)
 
 **Input:** root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1\
 **Output:** 3\
 **Explanation:** The LCA of nodes 5 and 1 is 3.
 
 ##### Example 2:
-![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/Image1.png)
+![](https://github.com/preet18/AlgoNotes/blob/master/Tree/Pictures/LCA%20of%20Binary%20Tree%20-%20Example%201.png)
 
 **Input:** root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4\
 **Output:** 5\
@@ -19,7 +21,7 @@ Let T be a rooted tree. The lowest common ancestor between two nodes n1 and n2 i
 
 ##### Example 3:
 **Input:** root = [1,2], p = 1, q = 2\
-**Output:** 1\
+**Output:** 1
 
 ##### Constraints:
 * The number of nodes in the tree is in the range [2, 10^5].
