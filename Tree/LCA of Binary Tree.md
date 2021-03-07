@@ -39,8 +39,36 @@ Storing the path from root to n1 and path from root to n2. And comparing the pat
 #### Logic:
 ```
 class Solution {
+    //O(N)|O(H)
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) return null;
         
+        List<TreeNode> m = new ArrayList<>();
+        List<TreeNode> n = new ArrayList<>();
+        
+        lowerCommonAncestorUtil(root, p, m);
+        lowerCommonAncestorUtil(root, q, n);
+        
+        TreeNode res = null;
+        for(int i=0, j=0; i<m.size() && j<n.size(); i++,j++){
+            if(m.get(i).val!=n.get(j).val){
+                break;
+            }
+            res = m.get(i);
+        }
+        return res;
+    }
+    
+    public boolean lowerCommonAncestorUtil(TreeNode root, TreeNode node, List<TreeNode> lst){
+        if(root==null){
+            return false;
+        }
+        lst.add(root);
+        if(root.val==node.val) return true;
+        if(lowerCommonAncestorUtil(root.left, node, lst)) return true;
+        if(lowerCommonAncestorUtil(root.right, node, lst)) return true;
+        lst.remove(lst.size()-1);
+        return false;
     }
 }
 ```
