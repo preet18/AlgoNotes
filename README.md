@@ -1,6 +1,8 @@
 # AlgoNotes
 DataStructures and Algorithm Notes
 
+https://leetcode.com/discuss/general-discussion/460599/blind-75-leetcode-questions
+
 https://leetcode.com/discuss/general-discussion/419062/list-of-leetcode-question-to-cover-all-the-concepts-and-type-of-questions
 
 TECHNIQUES USED TO SOLVE ARRAY PROBLEMS
