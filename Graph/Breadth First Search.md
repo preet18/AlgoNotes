@@ -1,5 +1,8 @@
 [Breadth First Search](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)
 
+**Time Complexity:** O(V+E), where V is the number of nodes and E is the number of edges.
+**Auxiliary Space:** O(V)
+
 ```
 public class BFSGraph {
 
