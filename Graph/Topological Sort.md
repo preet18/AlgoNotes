@@ -1,5 +1,13 @@
 [Topological Sort](https://www.geeksforgeeks.org/topological-sorting/)
 
+**Complexity Analysis:**
+
+Time Complexity: O(V+E). 
+The above algorithm is simply DFS with an extra stack. So time complexity is the same as DFS which is.
+Auxiliary space: O(V). 
+The extra space is needed for the stack.
+
+
 ``` Java
 
 // A Java program to print topological
