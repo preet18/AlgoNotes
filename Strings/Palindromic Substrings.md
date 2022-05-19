@@ -1,4 +1,4 @@
-[Palindromic Substrings]()
+[Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
 
 ``` Java
 class Solution {
