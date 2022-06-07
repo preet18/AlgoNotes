@@ -1,7 +1,7 @@
 [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 
-```
+``` Java
 public TreeNode buildTree(int[] preorder, int[] inorder) {
     return helper(0, 0, inorder.length - 1, preorder, inorder);
 }
@@ -23,7 +23,7 @@ public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int
 }
 ```
 
-```
+``` Java
 public TreeNode buildTree(int[] preorder, int[] inorder) {
     Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();
 
