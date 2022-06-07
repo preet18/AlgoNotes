@@ -1,6 +1,12 @@
 [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 
+T.C = O(N^2) As we are searching each value of preorder in inorder array.
+S.C = O(N) Stack memory for recursion .
+
+You can improve the time complexity to linear by introducing a hashmap to the same solution.
+
+
 ``` Java
 public TreeNode buildTree(int[] preorder, int[] inorder) {
     return helper(0, 0, inorder.length - 1, preorder, inorder);
