@@ -13,20 +13,6 @@ class Solution {
             return lowestCommonAncestor(root.right, p, q);
         return root;
     }
-    
-    //Using Iterative Approach - O(N)|O(H)
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        while(root!=null){
-            if(p.val<root.val && q.val<root.val){
-                root = root.left;
-            }else if(p.val>root.val && q.val>root.val){
-                root = root.right;
-            }else{
-                return root;
-            }
-        }
-        return root;
-    }
 }
 ```
 
