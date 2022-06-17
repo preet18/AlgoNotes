@@ -7,7 +7,31 @@ C - Coins Array Length;
 N - Height of the tree 
 
 ``` Java
-
+class Solution {
+    //O(coins.length^N)
+    int minCoins = Integer.MAX_VALUE;
+    public int coinChange(int[] coins, int amount) {
+        minCoins = amount+1;
+        coinChangeUtil(coins, amount, 0);
+        return minCoins>amount+1?-1:minCoins;
+    }
+    
+    public void coinChangeUtil(int[] coins, int amount, int count){
+        if(amount==0){
+            minCoins = Math.min(minCoins, count);
+            return;
+        }
+        if(amount<0){
+            return;
+        }
+        
+        for(int i=0; i<coins.length; i++){
+            if(coins[i]<=amount){
+                coinChangeUtil(coins, amount-coins[i], count+1);
+            }
+        }
+    }
+}
 
 ```
 
